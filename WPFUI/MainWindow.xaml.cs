@@ -42,28 +42,40 @@ namespace WPFUI
        
         private void OnClick_MoveNorth(object sender, RoutedEventArgs e)
         {
+            AudioService.PlaySound("button.wav");
+
             _gameSession?.MoveNorth();
         }
         private void OnClick_MoveWest(object sender, RoutedEventArgs e)
         {
+            AudioService.PlaySound("button.wav");
+
             _gameSession?.MoveWest();
         }
         private void OnClick_MoveEast(object sender, RoutedEventArgs e)
         {
+            AudioService.PlaySound("button.wav");
+
             _gameSession?.MoveEast();
         }
         private void OnClick_MoveSouth(object sender, RoutedEventArgs e)
         {
+            AudioService.PlaySound("button.wav");
+
             _gameSession?.MoveSouth();
         }
 
         private void OnClick_AttackMonster(object sender, RoutedEventArgs e)
         {
             _gameSession?.AttackCurrentMonster();
+
+            AudioService.PlaySound("Attack_Min.wav");
         }
 
         private void OnClick_UseCurrentConsumable(object sender, RoutedEventArgs e)
         {
+            AudioService.PlaySound("button.wav");
+
             _gameSession?.UseCurrentConsumable();
         }
 
@@ -76,6 +88,9 @@ namespace WPFUI
                     Owner = this,
                     DataContext = _gameSession
                 };
+
+                AudioService.PlaySound("Button2.wav");
+
                 tradeScreen.ShowDialog();
             }
         }
@@ -84,6 +99,8 @@ namespace WPFUI
         {
             var recipe = ((FrameworkElement)sender).DataContext as Recipe;
             _gameSession?.CraftItemUsing(recipe);
+
+            AudioService.PlaySound("Button2.wav");
         }
 
         private void InitializeUserInputActions()
@@ -92,7 +109,13 @@ namespace WPFUI
             _userInputActions?.Add(Key.A, () => _gameSession?.MoveWest());
             _userInputActions?.Add(Key.S, () => _gameSession?.MoveSouth());
             _userInputActions?.Add(Key.D, () => _gameSession?.MoveEast());
-            _userInputActions?.Add(Key.Z, () => _gameSession?.AttackCurrentMonster());
+            _userInputActions?.Add(Key.Z, () =>
+            {
+                
+                _gameSession?.AttackCurrentMonster();
+
+                AudioService.PlaySound("Attack_Min.wav");
+            });
             _userInputActions?.Add(Key.C, () => _gameSession?.UseCurrentConsumable());
             _userInputActions?.Add(Key.P, () => _gameSession?.PlayerDetails.IsVisible = !_gameSession.PlayerDetails.IsVisible);
             _userInputActions?.Add(Key.I, () => _gameSession?.InventoryDetails.IsVisible = !_gameSession.InventoryDetails.IsVisible);
@@ -104,6 +127,12 @@ namespace WPFUI
 
         private void MainWindow_OnKeyDown(object sender, KeyEventArgs e)
         {
+            if (e.Key == Key.S && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                SaveGame();
+                e.Handled = true;
+                return;
+            }
             if (_userInputActions.ContainsKey(e.Key))
             {
                 _userInputActions[e.Key].Invoke();
@@ -120,6 +149,7 @@ namespace WPFUI
             }
 
             _gameSession = gameSession;
+            AudioService.PlaySound("BackgroundMusic.mp3");
             DataContext = _gameSession;
 
             _gameSession.GameMessages.CollectionChanged += GameMessages_CollectionChanged;
@@ -137,6 +167,8 @@ namespace WPFUI
         {
             _gameSession?.Dispose();
 
+            AudioService.PlaySound("button.wav");
+
             var startup = new Startup();
             startup.Show();
             Close();
@@ -144,16 +176,22 @@ namespace WPFUI
 
         private void SaveGame_OnClick(object sender, RoutedEventArgs e)
         {
+            AudioService.PlaySound("Button2.wav");
+
             SaveGame();
         }
 
         private void Exit_OnClick(object sender, RoutedEventArgs e)
         {
+            AudioService.PlaySound("button.wav");
+
             Close();
         }
 
         private void MainWindow_OnClosing(object? sender, CancelEventArgs e)
         {
+            AudioService.PlaySound("button.wav");
+
             AskToSaveGame();
         }
 
@@ -167,6 +205,8 @@ namespace WPFUI
 
             if (message.ClickedYes)
             {
+                AudioService.PlaySound("button.wav");
+
                 SaveGame();
             }
         }
