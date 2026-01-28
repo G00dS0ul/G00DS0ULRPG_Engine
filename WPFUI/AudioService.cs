@@ -40,14 +40,6 @@ namespace WPFUI
 
                 _mediaPlayer.Open(new Uri(path));
 
-                _mediaPlayer.Volume = 1.0;
-
-                // 👇 NEW: If the song starts, tell us!
-                _mediaPlayer.MediaOpened += (s, e) =>
-                {
-                    // If you see this, the MP3 is healthy!
-                    MessageBox.Show("SUCCESS: Music Loaded! You should hear it now.");
-                };
 
                 // 👇 NEW: If the song crashes, tell us WHY!
                 _mediaPlayer.MediaFailed += (s, e) =>

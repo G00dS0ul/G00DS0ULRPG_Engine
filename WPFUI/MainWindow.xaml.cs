@@ -69,12 +69,12 @@ namespace WPFUI
         {
             _gameSession?.AttackCurrentMonster();
 
-            AudioService.PlaySound("Attack_Min.wav");
+            AudioService.PlaySound("Audio_Attack.wav");
         }
 
         private void OnClick_UseCurrentConsumable(object sender, RoutedEventArgs e)
         {
-            AudioService.PlaySound("button.wav");
+            AudioService.PlaySound("Audio_Consumables.wav");
 
             _gameSession?.UseCurrentConsumable();
         }
@@ -100,7 +100,7 @@ namespace WPFUI
             var recipe = ((FrameworkElement)sender).DataContext as Recipe;
             _gameSession?.CraftItemUsing(recipe);
 
-            AudioService.PlaySound("Button2.wav");
+            AudioService.PlaySound("Audio_Craft.wav");
         }
 
         private void InitializeUserInputActions()
@@ -114,7 +114,7 @@ namespace WPFUI
                 
                 _gameSession?.AttackCurrentMonster();
 
-                AudioService.PlaySound("Attack_Min.wav");
+                AudioService.PlaySound("Audio_Attack.wav");
             });
             _userInputActions?.Add(Key.C, () => _gameSession?.UseCurrentConsumable());
             _userInputActions?.Add(Key.P, () => _gameSession?.PlayerDetails.IsVisible = !_gameSession.PlayerDetails.IsVisible);
