@@ -1,7 +1,6 @@
 ﻿using G00DS0ULRPG.ViewModel;
 using G00DS0ULRPG.Models;
 using System.Windows;
-using G00DS0ULRPG.Services;
 
 namespace WPFUI
 {

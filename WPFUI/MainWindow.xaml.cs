@@ -149,7 +149,7 @@ namespace WPFUI
             }
 
             _gameSession = gameSession;
-            AudioService.PlaySound("BackgroundMusic.mp3");
+            AudioService.PlayBackgroundMusic("BackgroundMusic.mp3");
             DataContext = _gameSession;
 
             _gameSession.GameMessages.CollectionChanged += GameMessages_CollectionChanged;
@@ -190,12 +190,10 @@ namespace WPFUI
 
         private void MainWindow_OnClosing(object? sender, CancelEventArgs e)
         {
-            AudioService.PlaySound("button.wav");
-
-            AskToSaveGame();
+            AskToSaveGame(e);
         }
 
-        private void AskToSaveGame()
+        private void AskToSaveGame(CancelEventArgs e)
         {
             var message = new YesNoWindow("Save Game", "Do you want to save your game?")
             {
@@ -205,10 +203,24 @@ namespace WPFUI
 
             if (message.ClickedYes)
             {
-                AudioService.PlaySound("button.wav");
+                AudioService.PlaySound("Button_Exit.wav");
 
                 SaveGame();
             }
+
+            else if (message.ClickedNo)
+            {
+                AudioService.PlaySound("Button_Exit.wav");
+
+                Thread.Sleep(1000);
+            }
+
+            else
+            {
+                e.Cancel = true;
+            }
+
+
         }
 
 

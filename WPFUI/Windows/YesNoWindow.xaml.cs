@@ -5,6 +5,7 @@ namespace WPFUI.Windows
     public partial class YesNoWindow : Window
     {
         public bool ClickedYes { get; private set; }
+        public bool ClickedNo { get; private set; }
 
         public YesNoWindow(string title, string message)
         {
@@ -22,7 +23,7 @@ namespace WPFUI.Windows
 
         private void No_OnClick(object sender, RoutedEventArgs e)
         {
-            ClickedYes = false;
+            ClickedNo = true;
             Close();
         }
     }

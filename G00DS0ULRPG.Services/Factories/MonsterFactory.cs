@@ -1,7 +1,6 @@
 ﻿using System.Xml;
 using G00DS0ULRPG.Models.Shared;
 using G00DS0ULRPG.Models;
-using G00DS0ULRPG.Services;
 using G00DS0ULRPG.Core;
 
 namespace G00DS0ULRPG.Services.Factories
