@@ -1,6 +1,7 @@
 ﻿using G00DS0ULRPG.ViewModel;
 using G00DS0ULRPG.Models;
 using System.Windows;
+using G00DS0ULRPG.Services;
 
 namespace WPFUI
 {
@@ -21,6 +22,8 @@ namespace WPFUI
                 Session.CurrentPlayer.ReceiveGold(groupInventoryItem.Item.Price);
                 Session.CurrentTrader.AddItemToInventory(groupInventoryItem.Item);
                 Session.CurrentPlayer.RemoveItemFromInventory(groupInventoryItem.Item);
+
+                AudioService.PlaySound("Trade_Sell.wav");
             }
         }
 
@@ -35,6 +38,8 @@ namespace WPFUI
                     Session.CurrentPlayer.SpendGold(groupedInventoryItem.Item.Price);
                     Session.CurrentTrader.RemoveItemFromInventory(groupedInventoryItem.Item);
                     Session.CurrentPlayer.AddItemToInventory(groupedInventoryItem.Item);
+
+                    AudioService.PlaySound("Trade.wav");
                 }
                 else
                 {

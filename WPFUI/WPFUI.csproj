@@ -11,7 +11,32 @@
   <ItemGroup>
     <ProjectReference Include="..\G00DS0ULRPG.Core\G00DS0ULRPG.Core.csproj" />
     <ProjectReference Include="..\G00DS0ULRPG.Models\G00DS0ULRPG.Models.csproj" />
-    <ProjectReference Include="..\G00DS0ULRPG\G00DS0ULRPG.ViewModel.csproj" />
+    <ProjectReference Include="..\G00DS0ULRPG.ViewModel\G00DS0ULRPG.ViewModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="AudioFiles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="AudioFiles\Attack_min.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="AudioFiles\BackgroundMusic.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="AudioFiles\button.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="AudioFiles\Button2.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="AudioFiles\Trade.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="AudioFiles\Trade_Sell.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
