@@ -150,6 +150,17 @@ namespace WPFUI
 
             _gameSession = gameSession;
             AudioService.PlayBackgroundMusic("BackgroundMusic.mp3");
+
+            _gameSession.PlayerKilled += (sender, args) =>
+            {
+                MessageBox.Show($"Game Over!!!");
+                AudioService.PlaySound("Button_Exit.wav");
+            };
+            _gameSession.MonsterKilled += (sender, args) =>
+            {
+                MessageBox.Show($"Victory!!!");
+                AudioService.PlaySound("Trade.wav");
+            };
             DataContext = _gameSession;
 
             _gameSession.GameMessages.CollectionChanged += GameMessages_CollectionChanged;

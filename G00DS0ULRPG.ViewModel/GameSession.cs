@@ -12,6 +12,9 @@ namespace G00DS0ULRPG.ViewModel
     {
         private readonly MessageBroker _messageBroker = MessageBroker.GetInstance();
 
+        public event EventHandler PlayerKilled;
+        public event EventHandler MonsterKilled;
+
 
         #region Properties
             
@@ -315,7 +318,25 @@ namespace G00DS0ULRPG.ViewModel
 
         public void AttackCurrentMonster()
         {
+            var monster = CurrentMonster;
+            var player = CurrentPlayer;
+
+            if (player == null || monster == null || _currentBattle == null)
+            {
+                return;
+            }
+
             _currentBattle?.AttackOpponent();
+
+            if (monster.CurrentHitPoints <= 0)
+            {
+                MonsterKilled?.Invoke(this, EventArgs.Empty);
+            }
+
+            if (player.CurrentHitPoints <= 0)
+            {
+                PlayerKilled?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         public void UseCurrentConsumable()
