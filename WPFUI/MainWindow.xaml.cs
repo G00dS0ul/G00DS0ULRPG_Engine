@@ -153,13 +153,14 @@ namespace WPFUI
 
             _gameSession.PlayerKilled += (sender, args) =>
             {
-                MessageBox.Show($"Game Over!!!");
                 AudioService.PlaySound("Button_Exit.wav");
+                MessageBox.Show($"Game Over!!!");
+
             };
             _gameSession.MonsterKilled += (sender, args) =>
             {
-                MessageBox.Show($"Victory!!!");
                 AudioService.PlaySound("Trade.wav");
+                MessageBox.Show($"Victory!!!");
             };
             DataContext = _gameSession;
 

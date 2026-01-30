@@ -332,11 +332,6 @@ namespace G00DS0ULRPG.ViewModel
             {
                 MonsterKilled?.Invoke(this, EventArgs.Empty);
             }
-
-            if (player.CurrentHitPoints <= 0)
-            {
-                PlayerKilled?.Invoke(this, EventArgs.Empty);
-            }
         }
 
         public void UseCurrentConsumable()
@@ -392,6 +387,8 @@ namespace G00DS0ULRPG.ViewModel
         {
             _messageBroker.RaiseMessage("");
             _messageBroker.RaiseMessage($"The Monster killed you.");
+
+            PlayerKilled?.Invoke(this, EventArgs.Empty);
 
             CurrentLocation = CurrentWorld.LocationAt(0, -1);
             CurrentPlayer.CompletelyHeal();
