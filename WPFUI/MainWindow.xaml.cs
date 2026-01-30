@@ -8,6 +8,7 @@ using G00DS0ULRPG.Models;
 using G00DS0ULRPG.Services;
 using Microsoft.Win32;
 using WPFUI.Windows;
+using WPFUI.Services;
 
 namespace WPFUI
 {
@@ -116,13 +117,49 @@ namespace WPFUI
 
                 AudioService.PlaySound("Audio_Attack.wav");
             });
-            _userInputActions?.Add(Key.C, () => _gameSession?.UseCurrentConsumable());
-            _userInputActions?.Add(Key.P, () => _gameSession?.PlayerDetails.IsVisible = !_gameSession.PlayerDetails.IsVisible);
-            _userInputActions?.Add(Key.I, () => _gameSession?.InventoryDetails.IsVisible = !_gameSession.InventoryDetails.IsVisible);
-            _userInputActions?.Add(Key.Q, () => _gameSession?.QuestDetails.IsVisible = !_gameSession.QuestDetails.IsVisible);
-            _userInputActions?.Add(Key.R, () => _gameSession?.RecipesDetails.IsVisible = !_gameSession.RecipesDetails.IsVisible);
-            _userInputActions?.Add(Key.M, () => _gameSession?.GameMessageDetails.IsVisible = !_gameSession.GameMessageDetails.IsVisible);
-            _userInputActions?.Add(Key.T, () => OnClick_DisplayTradeScreen(this, new RoutedEventArgs()));
+            _userInputActions?.Add(Key.C, () =>
+            {
+                _gameSession?.UseCurrentConsumable();
+
+                AudioService.PlaySound("Audio_Consumables.wav");
+            });
+            _userInputActions?.Add(Key.P, () =>
+            {
+                _gameSession?.PlayerDetails.IsVisible = !_gameSession.PlayerDetails.IsVisible;
+
+                AudioService.PlaySound("Button2.wav");
+            });
+            _userInputActions?.Add(Key.I, () =>
+            {
+                
+                _gameSession?.InventoryDetails.IsVisible = !_gameSession.InventoryDetails.IsVisible;
+
+                AudioService.PlaySound("Button2.wav");
+            });
+            _userInputActions?.Add(Key.Q, () =>
+            { 
+                _gameSession?.QuestDetails.IsVisible = !_gameSession.QuestDetails.IsVisible;
+
+                AudioService.PlaySound("Button2.wav");
+            });
+            _userInputActions?.Add(Key.R, () =>
+            {
+                _gameSession?.RecipesDetails.IsVisible = !_gameSession.RecipesDetails.IsVisible;
+
+                AudioService.PlaySound("Button2.wav");
+            });
+            _userInputActions?.Add(Key.M, () =>
+            {
+                _gameSession?.GameMessageDetails.IsVisible = !_gameSession.GameMessageDetails.IsVisible;
+
+                AudioService.PlaySound("Button2.wav");
+            });
+            _userInputActions?.Add(Key.T, () =>
+            {
+                OnClick_DisplayTradeScreen(this, new RoutedEventArgs());
+
+                AudioService.PlaySound("Button2.wav");
+            });
         }
 
         private void MainWindow_OnKeyDown(object sender, KeyEventArgs e)
@@ -157,6 +194,12 @@ namespace WPFUI
                 MessageBox.Show($"Game Over!!!");
 
             };
+
+            _gameSession.LeveledUp += (sender, args) =>
+            {
+                AudioService.PlaySound("LevelUp.wav");
+                MessageBox.Show($"You Leveled Up!!!");
+            };
             _gameSession.MonsterKilled += (sender, args) =>
             {
                 AudioService.PlaySound("Trade.wav");
@@ -165,6 +208,11 @@ namespace WPFUI
             DataContext = _gameSession;
 
             _gameSession.GameMessages.CollectionChanged += GameMessages_CollectionChanged;
+        }
+
+        private void _gameSession_LeveledUp(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void GameMessages_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)

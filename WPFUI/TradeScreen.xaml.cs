@@ -2,6 +2,7 @@
 using G00DS0ULRPG.Models;
 using System.Windows;
 using G00DS0ULRPG.Services;
+using WPFUI.Services;
 
 namespace WPFUI
 {

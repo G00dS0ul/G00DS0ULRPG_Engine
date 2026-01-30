@@ -3,7 +3,7 @@ using System.Media;
 using System.Windows;
 using System.Windows.Media;
 
-namespace WPFUI
+namespace WPFUI.Services
 {
     public static class AudioService
     {

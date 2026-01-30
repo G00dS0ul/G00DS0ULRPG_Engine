@@ -1,10 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using G00DS0ULRPG.Models;
-using G00DS0ULRPG.Services.Factories;
-using G00DS0ULRPG.Services;
-using Newtonsoft.Json;
 using G00DS0ULRPG.Core;
+using G00DS0ULRPG.Models;
+using G00DS0ULRPG.Services;
+using G00DS0ULRPG.Services.Factories;
+using Newtonsoft.Json;
 
 namespace G00DS0ULRPG.ViewModel
 {
@@ -14,6 +14,7 @@ namespace G00DS0ULRPG.ViewModel
 
         public event EventHandler PlayerKilled;
         public event EventHandler MonsterKilled;
+        public event EventHandler LeveledUp;
 
 
         #region Properties
@@ -327,11 +328,6 @@ namespace G00DS0ULRPG.ViewModel
             }
 
             _currentBattle?.AttackOpponent();
-
-            if (monster.CurrentHitPoints <= 0)
-            {
-                MonsterKilled?.Invoke(this, EventArgs.Empty);
-            }
         }
 
         public void UseCurrentConsumable()
@@ -383,10 +379,10 @@ namespace G00DS0ULRPG.ViewModel
             }
         }
 
-        private void OnPlayerKilled(object sender, System.EventArgs eventArgs)
+        private void OnPlayerKilled(object sender, EventArgs eventArgs)
         {
             _messageBroker.RaiseMessage("");
-            _messageBroker.RaiseMessage($"The Monster killed you.");
+            _messageBroker.RaiseMessage("The Monster killed you.");
 
             PlayerKilled?.Invoke(this, EventArgs.Empty);
 
@@ -394,14 +390,18 @@ namespace G00DS0ULRPG.ViewModel
             CurrentPlayer.CompletelyHeal();
         }
 
-        private void OnCurrentMonsterKilled(object sender, System.EventArgs eventArgs)
+        private void OnCurrentMonsterKilled(object sender, EventArgs eventArgs)
         {
+            MonsterKilled?.Invoke(this, EventArgs.Empty);
+
             CurrentMonster = MonsterFactory.GetMonsterFromLocation(CurrentLocation);
         }
 
-        private void OnCurrentPlayerLeveledUp(object sender, System.EventArgs eventArgs)
+        private void OnCurrentPlayerLeveledUp(object sender, EventArgs eventArgs)
         {
             _messageBroker.RaiseMessage($"You are now in Level {CurrentPlayer.Level}");
+
+            LeveledUp?.Invoke(this, EventArgs.Empty);
         }
 
         public void Dispose()
